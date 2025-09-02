@@ -1,16 +1,15 @@
 import dayjs from 'dayjs';
 
-export function generateRangeDatesFromYearStart() {
-  const startDate = dayjs().startOf('year');
-  const endDate = new Date();
+export function generateNextDays(amount: number) {
+  const today = dayjs().startOf('day');
+  const dates: Date[] = [];
 
-  let dateRange = [];
-  let compareDate = startDate;
+  let compareDate = today;
 
-  while (compareDate.isBefore(endDate)) {
-    dateRange.push(compareDate.toDate());
+  for (let i = 0; i < amount; i++) {
+    dates.push(compareDate.toDate());
     compareDate = compareDate.add(1, 'day');
   }
 
-  return dateRange;
+  return dates;
 }
