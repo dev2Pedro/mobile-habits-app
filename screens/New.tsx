@@ -31,7 +31,7 @@ export function New() {
     <SafeAreaView style={{ flex: 1, backgroundColor: '#1E1E1E', paddingHorizontal: 32 }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingTop: 16, paddingLeft: 16 }}>
+        contentContainerStyle={{ paddingTop: 16, paddingLeft: 16, paddingBottom: 100 }}>
         <BackButton />
 
         <Text
@@ -88,22 +88,22 @@ export function New() {
         <TouchableOpacity
           activeOpacity={0.7}
           style={{
-            marginTop: 24, // mt-6
-            height: 56, // h-14
+            marginTop: 24,
+            height: 56,
             width: '100%',
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            borderRadius: 8, // rounded-md
-            backgroundColor: '#16a34a', // bg-green-600
+            borderRadius: 8,
+            backgroundColor: '#16a34a',
           }}>
           <Feather name="check" size={20} color="#FFFFFF" />
           <Text
             style={{
-              marginLeft: 8, // ml-2
-              fontWeight: '600', // font-semibold
-              fontSize: 16, // text-base
-              color: '#FFFFFF', // text-white
+              marginLeft: 8,
+              fontWeight: '600',
+              fontSize: 16,
+              color: '#FFFFFF',
             }}>
             Confirmar
           </Text>
