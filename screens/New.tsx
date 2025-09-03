@@ -1,14 +1,54 @@
-import { ScrollView } from 'react-native';
+import { ScrollView, Text, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BackButton } from 'components/BackButton';
+import { useState } from 'react';
 
 export function New() {
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
-    <SafeAreaView className="flex-1 bg-background px-8">
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#1E1E1E', paddingHorizontal: 32 }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingTop: 16, paddingLeft: 16 }}>
         <BackButton />
+
+        <Text
+          style={{
+            marginTop: 24,
+            fontFamily: 'Inter_800ExtraBold',
+            fontSize: 24,
+            color: '#FFFFFF',
+          }}>
+          Criar hábito
+        </Text>
+
+        <Text
+          style={{
+            marginTop: 24,
+            fontFamily: 'Inter_600SemiBold',
+            fontSize: 16,
+            color: '#FFFFFF',
+          }}>
+          Qual seu comprometimento?
+        </Text>
+
+        <TextInput
+          style={{
+            height: 48,
+            paddingLeft: 16,
+            borderRadius: 8,
+            marginTop: 12,
+            backgroundColor: '#4a4a51',
+            color: '#FFFFFF',
+            borderWidth: isFocused ? 2 : 0, // borda quando focado
+            borderColor: isFocused ? '#22c55e' : 'transparent',
+          }}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          placeholder="Digite seu hábito"
+          placeholderTextColor="#AAAAAA"
+        />
       </ScrollView>
     </SafeAreaView>
   );
