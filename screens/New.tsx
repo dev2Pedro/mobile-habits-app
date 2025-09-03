@@ -4,6 +4,16 @@ import { BackButton } from 'components/BackButton';
 import { useState } from 'react';
 import { Checkbox } from 'components/CheckBox';
 
+const avaiableWeekDays = [
+  'Domingo',
+  'Segunda-feira',
+  'Terça-feira',
+  'Quarta-feira',
+  'Quinta-feira',
+  'Sexta-feira',
+  'Sábado',
+];
+
 export function New() {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -51,7 +61,9 @@ export function New() {
           placeholderTextColor="#AAAAAA"
         />
 
-        <Checkbox />
+        {avaiableWeekDays.map((weekDay, index) => {
+          return <Checkbox key={weekDay} title={weekDay} />;
+        })}
       </ScrollView>
     </SafeAreaView>
   );
