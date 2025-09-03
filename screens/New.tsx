@@ -1,4 +1,5 @@
-import { ScrollView, Text, TextInput } from 'react-native';
+import { ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BackButton } from 'components/BackButton';
 import { useState } from 'react';
@@ -83,6 +84,30 @@ export function New() {
             />
           );
         })}
+
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={{
+            marginTop: 24, // mt-6
+            height: 56, // h-14
+            width: '100%',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 8, // rounded-md
+            backgroundColor: '#16a34a', // bg-green-600
+          }}>
+          <Feather name="check" size={20} color="#FFFFFF" />
+          <Text
+            style={{
+              marginLeft: 8, // ml-2
+              fontWeight: '600', // font-semibold
+              fontSize: 16, // text-base
+              color: '#FFFFFF', // text-white
+            }}>
+            Confirmar
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
