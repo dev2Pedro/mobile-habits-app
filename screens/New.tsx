@@ -2,6 +2,7 @@ import { ScrollView, Text, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BackButton } from 'components/BackButton';
 import { useState } from 'react';
+import { Checkbox } from 'components/CheckBox';
 
 export function New() {
   const [isFocused, setIsFocused] = useState(false);
@@ -49,6 +50,8 @@ export function New() {
           placeholder="Digite seu hábito"
           placeholderTextColor="#AAAAAA"
         />
+
+        <Checkbox />
       </ScrollView>
     </SafeAreaView>
   );
