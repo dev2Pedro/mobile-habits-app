@@ -15,7 +15,16 @@ const avaiableWeekDays = [
 ];
 
 export function New() {
+  const [weekDays, setWeekDays] = useState<number[]>([]);
   const [isFocused, setIsFocused] = useState(false);
+
+  function handleToggleWeekDay(weekDayIndex: number) {
+    if (weekDays.includes(weekDayIndex)) {
+      setWeekDays((prevState) => prevState.filter((weekDay) => weekDay !== weekDayIndex));
+    } else {
+      setWeekDays((prevState) => [...prevState, weekDayIndex]);
+    }
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#1E1E1E', paddingHorizontal: 32 }}>
@@ -50,9 +59,10 @@ export function New() {
             paddingLeft: 16,
             borderRadius: 8,
             marginTop: 12,
+            marginBottom: 8,
             backgroundColor: '#4a4a51',
             color: '#FFFFFF',
-            borderWidth: isFocused ? 2 : 0, // borda quando focado
+            borderWidth: isFocused ? 2 : 0,
             borderColor: isFocused ? '#22c55e' : 'transparent',
           }}
           onFocus={() => setIsFocused(true)}
@@ -61,8 +71,17 @@ export function New() {
           placeholderTextColor="#AAAAAA"
         />
 
+        <Text className="mb-2 mt-4 font-semibold text-base text-white">Qual a recorrência?</Text>
+
         {avaiableWeekDays.map((weekDay, index) => {
-          return <Checkbox key={weekDay} title={weekDay} />;
+          return (
+            <Checkbox
+              key={weekDay}
+              title={weekDay}
+              onPress={() => handleToggleWeekDay(index)}
+              checked={weekDays.includes(index)}
+            />
+          );
         })}
       </ScrollView>
     </SafeAreaView>
