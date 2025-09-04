@@ -61,10 +61,10 @@ export function New() {
             borderRadius: 8,
             marginTop: 12,
             marginBottom: 8,
-            backgroundColor: '#4a4a51',
+            backgroundColor: '#18181B',
             color: '#FFFFFF',
-            borderWidth: isFocused ? 2 : 0,
-            borderColor: isFocused ? '#22c55e' : 'transparent',
+            borderWidth: isFocused ? 2 : 1,
+            borderColor: isFocused ? '#22c55e' : '#27272A',
           }}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
