@@ -2,6 +2,7 @@ import { ScrollView, SafeAreaView, Text } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { BackButton } from 'components/BackButton';
 import dayjs from 'dayjs';
+import { ProgressBar } from 'components/ProgressBar';
 
 interface Params {
   date: string;
@@ -41,6 +42,8 @@ export function Habit() {
           }}>
           {dayAndMonth}
         </Text>
+
+        <ProgressBar progress={30} />
       </ScrollView>
     </SafeAreaView>
   );
