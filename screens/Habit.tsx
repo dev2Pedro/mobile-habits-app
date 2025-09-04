@@ -1,8 +1,9 @@
-import { ScrollView, SafeAreaView, Text } from 'react-native';
+import { ScrollView, SafeAreaView, Text, View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { BackButton } from 'components/BackButton';
 import dayjs from 'dayjs';
 import { ProgressBar } from 'components/ProgressBar';
+import { Checkbox } from 'components/CheckBox';
 
 interface Params {
   date: string;
@@ -44,6 +45,11 @@ export function Habit() {
         </Text>
 
         <ProgressBar progress={30} />
+
+        <View style={{ marginTop: 24 }}>
+          <Checkbox title="Beber 2L de água" checked={false} />
+          <Checkbox title="Academia" checked={true} />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
