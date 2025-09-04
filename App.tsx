@@ -1,3 +1,4 @@
+import './lib/dayjs';
 import { StatusBar, View } from 'react-native';
 import './global.css';
 import {
