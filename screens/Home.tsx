@@ -15,12 +15,12 @@ const datesFromYearStart = generateNextDays(30);
 const minimumSummaryDatesSizes = 18 * 5;
 const amountOfDaysToFill = minimumSummaryDatesSizes - datesFromYearStart.length;
 
-type SummaryProps = Array<{
+type SummaryProps = {
   id: string;
   date: string;
   amount: number;
   completed: number;
-}>;
+}[];
 
 export function Home() {
   const [loading, setLoading] = useState(true);
