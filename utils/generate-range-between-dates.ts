@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 
-export function generateNextDays(amount: number) {
-  const today = dayjs().startOf('day');
+export function generateNextDaysFrom(startDate: Date | string, amount: number) {
+  const firstDay = dayjs(startDate).startOf('day');
   const dates: Date[] = [];
 
-  let compareDate = today;
+  let compareDate = firstDay;
 
   for (let i = 0; i < amount; i++) {
     dates.push(compareDate.toDate());

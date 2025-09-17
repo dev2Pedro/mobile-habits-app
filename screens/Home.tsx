@@ -4,16 +4,14 @@ import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 
 import { api } from 'lib/axios';
-import { generateNextDays } from '../utils/generate-range-between-dates';
+import { generateNextDaysFrom } from '../utils/generate-range-between-dates';
 
 import { HabitDay, DAY_SIZE } from '../components/HabitDay';
 import { Header } from '../components/Header';
 import { Loading } from '../components/Loading';
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
-const datesFromYearStart = generateNextDays(30);
 const minimumSummaryDatesSizes = 18 * 5;
-const amountOfDaysToFill = minimumSummaryDatesSizes - datesFromYearStart.length;
 
 type SummaryProps = {
   id: string;
@@ -25,6 +23,7 @@ type SummaryProps = {
 export function Home() {
   const [loading, setLoading] = useState(true);
   const [summary, setSummary] = useState<SummaryProps | null>(null);
+  const [dates, setDates] = useState<Date[]>([]);
   const { navigate } = useNavigation();
 
   async function fetchData() {
@@ -33,6 +32,13 @@ export function Home() {
       const response = await api.get('/summary');
       console.log('📌 Response data:', response.data);
       setSummary(response.data);
+
+      // Pega a data do primeiro hábito
+      const firstHabitDate = response.data[0]?.date;
+      const generatedDates = firstHabitDate
+        ? generateNextDaysFrom(firstHabitDate, 30)
+        : generateNextDaysFrom(new Date(), 30);
+      setDates(generatedDates);
     } catch (error) {
       Alert.alert('Ops', 'Não foi possível carregar o sumário de hábitos');
       console.log('❌ API error:', error);
@@ -45,9 +51,12 @@ export function Home() {
     fetchData();
   }, []);
 
+  const amountOfDaysToFill = minimumSummaryDatesSizes - dates.length;
+
   if (loading) {
     return <Loading />;
   }
+
   return (
     <View className="flex-1 bg-background px-4 pt-8">
       <Header />
@@ -74,10 +83,11 @@ export function Home() {
         contentContainerStyle={{ paddingBottom: 100 }}>
         {summary && (
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', width: '100%' }}>
-            {datesFromYearStart.slice(0, minimumSummaryDatesSizes).map((date) => {
-              const dayWithHabits = summary.find((day) => {
-                return dayjs(date).isSame(day.date, 'day');
-              });
+            {dates.slice(0, minimumSummaryDatesSizes).map((date) => {
+              const dayWithHabits = summary.find((day) =>
+                dayjs(date).isSame(dayjs(day.date), 'day')
+              );
+
               return (
                 <HabitDay
                   key={date.toISOString()}
