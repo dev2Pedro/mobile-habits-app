@@ -1,9 +1,10 @@
-import { ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Alert, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BackButton } from 'components/BackButton';
 import { useState } from 'react';
 import { Checkbox } from 'components/CheckBox';
+import { api } from 'lib/axios';
 
 const avaiableWeekDays = [
   'Domingo',
@@ -16,6 +17,7 @@ const avaiableWeekDays = [
 ];
 
 export function New() {
+  const [title, setTitle] = useState('');
   const [weekDays, setWeekDays] = useState<number[]>([]);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -24,6 +26,26 @@ export function New() {
       setWeekDays((prevState) => prevState.filter((weekDay) => weekDay !== weekDayIndex));
     } else {
       setWeekDays((prevState) => [...prevState, weekDayIndex]);
+    }
+  }
+
+  async function handleCreateNewHabit() {
+    try {
+      if (!title.trim() || weekDays.length === 0) {
+        Alert.alert('Novo hábito', 'Informe o nome do hábito e escolha a periodicidade.');
+      }
+
+      await api.post('/habits', {
+        title,
+        weekDays,
+      });
+
+      setTitle('');
+      setWeekDays([]);
+      Alert.alert('Novo hábito', 'Hábito criado com sucesso!');
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Ops', 'Não foi possivel criar o novo hábito.');
     }
   }
 
@@ -70,6 +92,8 @@ export function New() {
           onBlur={() => setIsFocused(false)}
           placeholder="Digite seu hábito"
           placeholderTextColor="#AAAAAA"
+          onChangeText={setTitle}
+          value={title}
         />
 
         <Text className="mb-2 mt-4 font-semibold text-base text-white">Qual a recorrência?</Text>
@@ -87,6 +111,7 @@ export function New() {
 
         <TouchableOpacity
           activeOpacity={0.7}
+          onPress={handleCreateNewHabit}
           style={{
             marginTop: 24,
             height: 56,
