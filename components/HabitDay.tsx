@@ -1,6 +1,8 @@
+/* eslint-disable import/no-named-as-default */
 import { TouchableOpacity, Dimensions, TouchableOpacityProps } from 'react-native';
 import clsx from 'clsx';
 import { generateProgressPercentage } from 'utils/generate-progress-percentage';
+import dayjs from 'dayjs';
 
 const WEEK_DAYS = 7;
 const SCREEN_HORIZONTAL_PADDING = 32;
@@ -18,6 +20,9 @@ interface Props extends TouchableOpacityProps {
 export function HabitDay({ amountOfHabits = 0, amountCompleted = 0, date, ...rest }: Props) {
   const amountAccomplishedPercentage =
     amountOfHabits > 0 ? generateProgressPercentage(amountOfHabits, amountCompleted) : 0;
+
+  const today = dayjs().startOf('day').toDate();
+  const isCurrentDay = dayjs(date).isSame(today);
   return (
     <TouchableOpacity
       className={clsx('m-1 rounded-lg border-2', {
@@ -31,6 +36,7 @@ export function HabitDay({ amountOfHabits = 0, amountCompleted = 0, date, ...res
         ['border-violet-500 bg-violet-600']:
           amountAccomplishedPercentage > 60 && amountAccomplishedPercentage < 80,
         ['border-violet-400 bg-violet-500']: amountAccomplishedPercentage > 80,
+        ['border-4 border-white']: isCurrentDay,
       })}
       style={{
         width: DAY_SIZE,
